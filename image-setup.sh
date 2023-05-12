@@ -52,8 +52,8 @@ tmpfs /var/lib/systemd/timers tmpfs defaults,noatime,nosuid,size=50M	0	0
 EOF
 fi
 
-echo adsbexchange > /etc/hostname
-touch /boot/adsb-config.txt # canary used in some scripting if it's the adsbexchange image
+echo adsbfi > /etc/hostname
+touch /boot/adsb-config.txt # canary used in some scripting if it's the ADSBfi image
 
 mv /etc/cron.hourly/fake-hwclock /etc/cron.daily || true
 
@@ -86,7 +86,7 @@ apt dist-upgrade -y
 
 temp_packages="git make gcc libusb-1.0-0-dev librtlsdr-dev libncurses-dev zlib1g-dev python3-dev python3-venv libzstd-dev"
 packages="chrony librtlsdr0 lighttpd zlib1g dump978-fa soapysdr-module-rtlsdr socat netcat rtl-sdr beast-splitter libzstd1 userconf-pi"
-packages+=" curl jq gzip dnsutils perl bash-builtins" # for adsbexchange-stats, avoid invoking apt install gain
+packages+=" curl jq gzip dnsutils perl bash-builtins"
 
 # these are less than 0.5 MB each, useful tools for various stuff
 packages+=" moreutils inotify-tools cpufrequtils"
@@ -104,21 +104,21 @@ done
 apt purge -y piaware-repository
 rm -f /etc/apt/sources.list.d/piaware-*.list
 
-mkdir -p /adsbexchange/
-rm -rf /adsbexchange/update
-git clone --depth 1 https://github.com/ADSBexchange/adsbx-update.git /adsbexchange/update
-rm -rf /adsbexchange/update/.git
+mkdir -p /adsbfi/
+rm -rf /adsbfi/update
+git clone --depth 1 https://github.com/rhysackerman/adsbfi-update.git /adsbfi/update
+rm -rf /adsbfi/update/.git
 
-bash /adsbexchange/update/update-adsbx.sh
+bash /adsbfi/update/update-adsbfi.sh
 
-git clone --depth 1 https://github.com/dstreufert/adsbx-webconfig.git
-pushd adsbx-webconfig
+git clone --depth 1 https://github.com/rhysackerman/adsbfi-webconfig.git
+pushd adsbfi-webconfig
 bash install.sh
 popd
 
 bash -c "$(curl -L -o - https://github.com/wiedehopf/graphs1090/raw/master/install.sh)"
 #make sure the symlinks are present for graphs1090 data collection:
-ln -snf /run/adsbexchange-978 /usr/share/graphs1090/978-symlink/data
+#ln -snf /run/adsbfi-978 /usr/share/graphs1090/978-symlink/data - Unsure if adsbfi 978 is setup in the same way as this?
 ln -snf /run/readsb /usr/share/graphs1090/data-symlink/data
 
 bash -c "$(curl -L -o - https://github.com/wiedehopf/adsb-scripts/raw/master/autogain-install.sh)"
@@ -136,9 +136,9 @@ apt clean
 sed -i -e 's#^driftfile.*#driftfile /var/tmp/chrony.drift#' /etc/chrony/chrony.conf
 
 # config symlinks
-ln -sf /boot/adsbx-978env /etc/default/dump978-fa
-ln -sf /boot/adsbx-env /etc/default/readsb
-ln -sf /boot/adsb-config.txt /etc/default/adsbexchange
+ln -sf /boot/adsbfi-978env /etc/default/dump978-fa
+ln -sf /boot/adsbfi-env /etc/default/readsb
+ln -sf /boot/adsb-config.txt /etc/default/adsbfi
 
 cd /
 rm -rf /utemp
