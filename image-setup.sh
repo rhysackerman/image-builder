@@ -80,7 +80,7 @@ dpkg -i piaware-repo.deb
 
 #systemctl disable zerotier-one
 
-apt update
+apt update --allow-unauthenticated
 apt remove -y g++ libraspberrypi-doc gdb
 apt dist-upgrade -y
 
