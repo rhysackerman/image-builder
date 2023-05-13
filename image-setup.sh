@@ -65,14 +65,8 @@ popd
 # enable ssh
 systemctl enable ssh
 
-if grep -qs -e bullseye /etc/os-release; then
-    wget -O piaware-repo.deb https://flightaware.com/adsb/piaware/files/packages/pool/piaware/p/piaware-support/piaware-repository_7.1_all.deb
-elif grep -qs -e buster /etc/os-release; then
-    wget -O piaware-repo.deb https://flightaware.com/adsb/piaware/files/packages/pool/piaware/p/piaware-support/piaware-repository_6.1_all.deb
-else
-    wget -O piaware-repo.deb https://flightaware.com/adsb/piaware/files/packages/pool/piaware/p/piaware-support/piaware-repository_5.1_all.deb
-fi
-dpkg -i piaware-repo.deb
+wget https://flightaware.com/adsb/piaware/files/packages/pool/piaware/f/flightaware-apt-repository/flightaware-apt-repository_1.1_all.deb
+sudo dpkg -i flightaware-apt-repository_1.1_all.deb
 
 #curl https://install.zerotier.com  -o install-zerotier.sh
 #sed -i -e 's#while \[ ! -f /var/lib/zerotier-one/identity.secret \]; do#\0 break#' install-zerotier.sh
@@ -80,7 +74,7 @@ dpkg -i piaware-repo.deb
 
 #systemctl disable zerotier-one
 
-apt update --allow-unauthenticated
+apt update
 apt remove -y g++ libraspberrypi-doc gdb
 apt dist-upgrade -y
 
