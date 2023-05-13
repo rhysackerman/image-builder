@@ -74,9 +74,10 @@ sudo dpkg -i flightaware-apt-repository_1.1_all.deb
 
 #systemctl disable zerotier-one
 
-apt update
+apt update --allow-insecure-repositories
 apt remove -y g++ libraspberrypi-doc gdb
-apt dist-upgrade -y
+apt dist-upgrade -y --allow-unauthenticated
+apt-get update -y --allow-insecure-repositories --allow-unauthenticated
 
 temp_packages="git make gcc libusb-1.0-0-dev librtlsdr-dev libncurses-dev zlib1g-dev python3-dev python3-venv libzstd-dev"
 packages="chrony librtlsdr0 lighttpd zlib1g dump978-fa soapysdr-module-rtlsdr socat netcat rtl-sdr beast-splitter libzstd1 userconf-pi"
@@ -85,7 +86,7 @@ packages+=" curl jq gzip dnsutils perl bash-builtins"
 # these are less than 0.5 MB each, useful tools for various stuff
 packages+=" moreutils inotify-tools cpufrequtils"
 
-while ! apt install --no-install-recommends --no-install-suggests -y $packages $temp_packages
+while ! apt install --no-install-recommends --no-install-suggests -y --allow-unauthenticated --fix-missing $packages $temp_packages
 do
     echo --------------
     echo --------------
@@ -95,8 +96,8 @@ do
     sleep 10
 done
 
-apt purge -y piaware-repository
-rm -f /etc/apt/sources.list.d/piaware-*.list
+apt purge -y flightaware-apt-repository
+rm -f /etc/apt/sources.list.d/flightaware-*.list
 
 mkdir -p /adsbfi/
 rm -rf /adsbfi/update
