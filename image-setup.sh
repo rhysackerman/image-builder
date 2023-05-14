@@ -53,7 +53,7 @@ EOF
 fi
 
 echo adsbfi > /etc/hostname
-touch /boot/adsb-config.txt # canary used in some scripting if it's the ADSBfi image
+touch /boot/adsbfi-config.txt # canary used in some scripting if it's the ADSBfi image
 
 mv /etc/cron.hourly/fake-hwclock /etc/cron.daily || true
 
@@ -133,7 +133,7 @@ sed -i -e 's#^driftfile.*#driftfile /var/tmp/chrony.drift#' /etc/chrony/chrony.c
 # config symlinks
 ln -sf /boot/adsbfi-978env /etc/default/dump978-fa
 ln -sf /boot/adsbfi-env /etc/default/readsb
-ln -sf /boot/adsb-config.txt /etc/default/adsbfi
+ln -sf /boot/adsbfi-config.txt /etc/default/adsbfi
 
 cd /
 rm -rf /utemp
