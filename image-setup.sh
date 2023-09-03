@@ -79,7 +79,8 @@ apt remove -y g++ libraspberrypi-doc gdb
 apt dist-upgrade -y --allow-unauthenticated
 apt-get update -y --allow-insecure-repositories --allow-unauthenticated
 sudo apt-get clean
-sudo apt-get update -y
+wget -qO - https://archive.raspberrypi.org/debian/raspbian.public.key | sudo apt-key add -
+
 
 temp_packages="git make gcc libusb-1.0-0-dev librtlsdr-dev libncurses-dev zlib1g-dev python3-dev python3-venv libzstd-dev"
 packages="chrony librtlsdr0 lighttpd zlib1g dump978-fa soapysdr-module-rtlsdr socat netcat rtl-sdr beast-splitter libzstd1 userconf-pi"
