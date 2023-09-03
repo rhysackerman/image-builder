@@ -88,6 +88,8 @@ packages+=" moreutils inotify-tools cpufrequtils"
 
 while ! apt install --no-install-recommends --no-install-suggests -y --allow-unauthenticated --fix-missing $packages $temp_packages
 do
+    apt update -y
+    apt upgrade -y
     echo --------------
     echo --------------
     echo apt install failed, lets TRY AGAIN in 10 seconds!
