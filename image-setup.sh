@@ -35,7 +35,7 @@ fi
 
 # for good measure, blacklist SDRs ... we don't need these kernel modules
 # this isn't really necessary but it doesn't hurt
-echo -e 'blacklist rtl2832\nblacklist dvb_usb_rtl28xxu\nblacklist rtl8192cu\nblacklist rtl8xxxu\n' > /etc/modprobe.d/blacklist-rtl-sdr.conf
+#echo -e 'blacklist rtl2832\nblacklist dvb_usb_rtl28xxu\nblacklist rtl8192cu\nblacklist rtl8xxxu\n' > /etc/modprobe.d/blacklist-rtl-sdr.conf
 
 systemctl disable dphys-swapfile.service
 systemctl disable apt-daily.timer
