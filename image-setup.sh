@@ -76,7 +76,7 @@ sudo dpkg -i flightaware-apt-repository_1.1_all.deb
 
 apt update --allow-insecure-repositories
 apt remove -y g++ libraspberrypi-doc gdb
-apt dist-upgrade -y --allow-unauthenticated
+# apt dist-upgrade -y --allow-unauthenticated
 apt-get update -y --allow-insecure-repositories --allow-unauthenticated
 sudo apt-get clean
 
