@@ -103,7 +103,7 @@ rm -f /etc/apt/sources.list.d/flightaware-*.list
 
 mkdir -p /adsbfi/
 rm -rf /adsbfi/update
-git clone --depth 1 https://github.com/rhysackerman/adsbfi-update.git /adsbfi/update
+git clone --depth 1 https://github.com/rhysackerman/adsbfi-update.git --branch LocalInstall /adsbfi/update
 rm -rf /adsbfi/update/.git
 
 bash /adsbfi/update/update-adsbfi.sh
