@@ -35,6 +35,7 @@ fi
 
 # for good measure, blacklist SDRs ... we don't need these kernel modules
 # this isn't really necessary but it doesn't hurt
+# Disabled Sept 2023 as discovered to be interfering with some external USB WiFi adapters
 # echo -e 'blacklist rtl2832\nblacklist dvb_usb_rtl28xxu\nblacklist rtl8192cu\nblacklist rtl8xxxu\n' > /etc/modprobe.d/blacklist-rtl-sdr.conf
 
 systemctl disable dphys-swapfile.service
@@ -77,9 +78,6 @@ sudo dpkg -i flightaware-apt-repository_1.1_all.deb
 apt update --allow-insecure-repositories
 apt remove -y g++ libraspberrypi-doc gdb
 apt dist-upgrade -y --allow-unauthenticated
-sudo apt-key del "CF8A 1AF5 02A2 AA2D 763B  AE7E 82B1 2992 7FA3 303E"
-sudo apt-key del "A0DA 38D0 D76E 8B5D 6388  7281 9165 938D 90FD DD2E"
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 82B129927FA3303E
 apt-get update -y --allow-insecure-repositories --allow-unauthenticated
 
 temp_packages="git make gcc libusb-1.0-0-dev librtlsdr-dev libncurses-dev zlib1g-dev python3-dev python3-venv libzstd-dev"
