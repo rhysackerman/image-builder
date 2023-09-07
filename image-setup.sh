@@ -65,6 +65,10 @@ popd
 # enable ssh
 systemctl enable ssh
 
+wget https://raw.githubusercontent.com/adsbfi/adsb-fi-scripts/master/create-uuid.sh
+chmod +x create-uuid.sh
+bash create-uuid.sh
+
 wget https://flightaware.com/adsb/piaware/files/packages/pool/piaware/f/flightaware-apt-repository/flightaware-apt-repository_1.1_all.deb
 sudo dpkg -i flightaware-apt-repository_1.1_all.deb
 
